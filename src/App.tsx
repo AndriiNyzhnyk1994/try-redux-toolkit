@@ -29,12 +29,14 @@ function App() {
   }
 
   const changeTodoStatus = (toDoId: string, status: boolean) => {
-    const todo = todos.find(t => t.id === toDoId)
-    if (todo) {
-      todo.completed = status
-      setTodos([...todos])
-    }
-    
+    setTodos(
+      todos.map(t => {
+        if(t.id === toDoId) {
+          return {...t, completed: status}
+        }
+        return t
+      })
+    )
   }
 
 
