@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import { Todolist } from './Components/Todolist';
+import { InputField } from './Components/InputField';
 
 export type ToDoType = {
   id: string
@@ -24,15 +26,15 @@ function App() {
     setText('')
   }
 
-  const removeTodo = (toDoId: string) => {
-    setTodos(todos.filter(t => t.id !== toDoId))
+  const removeTodo = (todoId: string) => {
+    setTodos(todos.filter(t => t.id !== todoId))
   }
 
-  const changeTodoStatus = (toDoId: string, status: boolean) => {
+  const changeTodoStatus = (todoId: string, status: boolean) => {
     setTodos(
       todos.map(t => {
-        if(t.id === toDoId) {
-          return {...t, completed: status}
+        if (t.id === todoId) {
+          return { ...t, completed: status }
         }
         return t
       })
@@ -42,26 +44,15 @@ function App() {
 
   return (
     <div className="App">
-      <label >
-        <input value={text} onChange={(e) => { setText(e.currentTarget.value) }} />
-        <button onClick={addTodo}>Add todo</button>
-      </label>
-      <ul>
-        {
-          todos.map((t) => {
-            return (
-              <li key={t.id}>
-                <input
-                  type="checkbox"
-                  checked={t.completed}
-                  onChange={(e) => { changeTodoStatus(t.id, e.currentTarget.checked) }} />
-                <span>{t.title}</span>
-                <span onClick={() => removeTodo(t.id)} className='deleter'>&times;</span>
-              </li>
-            )
-          })
-        }
-      </ul>
+      <InputField
+        text={text}
+        handleSubmit={addTodo}
+        handleInput={setText}
+      />
+      <Todolist
+        todos={todos}
+        removeTodo={removeTodo}
+        changeTodoStatus={changeTodoStatus} />
     </div>
   );
 }
