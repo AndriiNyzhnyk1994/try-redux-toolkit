@@ -42,7 +42,7 @@ function App() {
 
   return (
     <div className="App">
-      <label htmlFor="">
+      <label >
         <input value={text} onChange={(e) => { setText(e.currentTarget.value) }} />
         <button onClick={addTodo}>Add todo</button>
       </label>
