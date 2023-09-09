@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from './hooks/redux'
 import { userSlice } from './store/reducers/UserSlice'
+import { fetchUsers } from './store/reducers/ActionCreators'
 
 export function App2() {
-    const { count } = useAppSelector(state => state.userReducer)
+    const { users, count, isLoading, error } = useAppSelector(state => state.userReducer)
 
     const { increment } = userSlice.actions
     // it's a way how we can to take our actions from userSlice
@@ -12,11 +13,24 @@ export function App2() {
 
     // increment(5) returns typical action (an object with necessary preperties)
     // {payload: 5, type: 'user/increment'} 
-    
+
+
+    useEffect(() => {
+        dispatch(fetchUsers())
+    }, [])
+
+
+
     return (
         <div>
-            <h1>{count}</h1>
-            <button onClick={() => dispatch(increment(5))}>INCREMENT</button>
+            {isLoading && <h1>LOADING...</h1>}
+            {error && <h1>{error}</h1>}
+            {JSON.stringify(users, null, 2)}
+
+            {/* <div>
+                <h1>{count}</h1>
+                <button onClick={() => dispatch(increment(5))}>INCREMENT</button>
+            </div> */}
         </div>
     )
 }

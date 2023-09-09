@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { IUser } from "../../models/IUser"
+import { fetchUsers } from "./ActionCreators"
 
 interface UserState {
     users: IUser[]
@@ -23,20 +24,38 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
-        userFetching(state,) {
-            state.isLoading = true
+        // userFetching(state) {
+        //     state.isLoading = true
+        // },
+        // userFetchingSuccess(state, action: PayloadAction<IUser[]>) {
+        //     state.isLoading = false
+        //     state.error = ''
+        //     state.users = action.payload
+        // },
+        // userFetchingError(state, action: PayloadAction<string>) {
+        //     state.isLoading = false
+        //     state.error = action.payload
+        // },
+
+        // now this reducers are unnecessary because
+        // we have extraReducers with the same logic
+        
+        increment(state, action: PayloadAction<number>) {
+            state.count += action.payload
         },
-        userFetchingSuccess(state, action: PayloadAction<IUser[]>) {
+    },
+    extraReducers: {
+        [fetchUsers.fulfilled.type]: (state, action: PayloadAction<IUser[]>) => {
             state.isLoading = false
             state.error = ''
             state.users = action.payload
         },
-        userFetchingError(state, action: PayloadAction<string>) {
+        [fetchUsers.pending.type]: (state) => {
+            state.isLoading = true
+        },
+        [fetchUsers.rejected.type]: (state, action: PayloadAction<string>) => {
             state.isLoading = false
             state.error = action.payload
-        },
-        increment(state, action: PayloadAction<number>) {
-            state.count += action.payload
         },
     }
 })
