@@ -23,10 +23,21 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
+        userFetching(state,) {
+            state.isLoading = true
+        },
+        userFetchingSuccess(state, action: PayloadAction<IUser[]>) {
+            state.isLoading = false
+            state.error = ''
+            state.users = action.payload
+        },
+        userFetchingError(state, action: PayloadAction<string>) {
+            state.isLoading = false
+            state.error = action.payload
+        },
         increment(state, action: PayloadAction<number>) {
-            console.log(state.count);
             state.count += action.payload
-        }
+        },
     }
 })
 
