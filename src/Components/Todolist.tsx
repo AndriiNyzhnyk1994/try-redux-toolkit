@@ -1,14 +1,12 @@
 import React from 'react'
-import { ToDoType } from '../App'
 import { TodoItem } from './TodoItem'
+import { useAppSelector } from '../hook'
 
-type PropsType = {
-    todos: ToDoType[]
-    removeTodo: (todoId: string) => void
-    changeTodoStatus: (todoId: string, status: boolean) => void
-}
 
-export function Todolist({ todos, ...restProps }: PropsType) {
+
+export const Todolist: React.FC = () => {
+    const todos = useAppSelector(state => state.todos.list)
+
     return (
         <ul>
             {
@@ -16,11 +14,7 @@ export function Todolist({ todos, ...restProps }: PropsType) {
                     return (
                         <TodoItem
                             key={t.id}
-                            id={t.id}
-                            title={t.title}
-                            completed={t.completed}
-                            removeTodo={restProps.removeTodo}
-                            changeTodoStatus={restProps.changeTodoStatus}
+                            {...t}
                         />
                     )
                 })

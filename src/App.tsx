@@ -1,60 +1,38 @@
 import React, { useState } from 'react';
 import './App.css';
+import { NewTodoForm } from './Components/NewTodoForm';
+import { addTodo } from './store/todoSlice';
 import { Todolist } from './Components/Todolist';
-import { InputField } from './Components/InputField';
+import { useAppDispatch } from './hook';
 
 export type ToDoType = {
-  id: string
-  title: string
-  completed: boolean
+    id: string
+    title: string
+    completed: boolean
 }
 
 function App() {
+    const [text, setText] = useState('')
+    const dispatch = useAppDispatch()
 
-  const [todos, setTodos] = useState<ToDoType[]>([])
-  const [text, setText] = useState('')
-
-  const addTodo = () => {
-    if (text.trim().length) {
-      const todo: ToDoType = {
-        id: new Date().toISOString(),
-        title: text,
-        completed: false
-      }
-      setTodos([todo, ...todos])
-    }
-    setText('')
-  }
-
-  const removeTodo = (todoId: string) => {
-    setTodos(todos.filter(t => t.id !== todoId))
-  }
-
-  const changeTodoStatus = (todoId: string, status: boolean) => {
-    setTodos(
-      todos.map(t => {
-        if (t.id === todoId) {
-          return { ...t, completed: status }
+    const addTask = () => {
+        dispatch(addTodo(text))
+        if(text.trim()) {
+            setText('')
         }
-        return t
-      })
-    )
-  }
+    }
 
 
-  return (
-    <div className="App">
-      <InputField
-        text={text}
-        handleSubmit={addTodo}
-        handleInput={setText}
-      />
-      <Todolist
-        todos={todos}
-        removeTodo={removeTodo}
-        changeTodoStatus={changeTodoStatus} />
-    </div>
-  );
+    return (
+        <div className="App">
+            <NewTodoForm
+                value={text}
+                handleAction={addTask}
+                updateText={setText}
+            />
+            <Todolist />
+        </div>
+    );
 }
 
 export default App;

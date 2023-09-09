@@ -1,20 +1,25 @@
 import React from 'react'
 import { ToDoType } from '../App'
+import { useAppDispatch } from '../hook'
+import { changeTodoStatus, removeTodo } from '../store/todoSlice'
 
-type PropsType = ToDoType & {
-    removeTodo: (todoId: string) => void
-    changeTodoStatus: (todoId: string, status: boolean) => void
-}
 
-export function TodoItem({ id, title, completed, ...restProps }: PropsType) {
+type PropsType = ToDoType 
+export const TodoItem: React.FC<PropsType> = ({ id, title, completed }) => {
+
+    const dispatch = useAppDispatch()
+
+
     return (
         <li key={id}>
             <input
                 type="checkbox"
                 checked={completed}
-                onChange={(e) => { restProps.changeTodoStatus(id, e.currentTarget.checked) }} />
+                onChange={() => dispatch(changeTodoStatus(id))} />
             <span>{title}</span>
-            <span onClick={() => restProps.removeTodo(id)} className='deleter'>&times;</span>
+            <span
+                onClick={() => dispatch(removeTodo(id))}
+                className='deleter'>&times;</span>
         </li>
     )
 }
