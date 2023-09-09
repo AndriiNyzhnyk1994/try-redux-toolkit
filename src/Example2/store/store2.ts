@@ -2,15 +2,15 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from './reducers/UserSlice'
 
 const rootReducer = combineReducers({
-    userReducer
+    userReducer,
 })
 
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer
         //it's something like united reducer
-    }) 
-    
+    })
+
 }
 // setupStore - it's a function that returns a whole store (with its own dispatch)
 
