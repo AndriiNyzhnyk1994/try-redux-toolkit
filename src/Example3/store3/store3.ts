@@ -1,15 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import countReducer from './countSlice'
 
 
 
-export const countSlice = createSlice({
-    name: 'counter',
-    initialState: {
-        count: 0
-    },
-    reducers: {
-        increment(state) {
-            state.count + 1
-        }
-    }
+const rootReducer = combineReducers({
+    countReducer
 })
+
+
+export const setupStore3 = () => {
+    return configureStore({
+        reducer: rootReducer
+    })
+}
+
+export type RootStateType = ReturnType<typeof rootReducer>
+export type AppStoreType = ReturnType<typeof setupStore3>
+export type AppDispatchType = AppStoreType['dispatch']
