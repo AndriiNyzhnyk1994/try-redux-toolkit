@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
+import { useAppSelector, useAppDispatch } from './store3/store3'
+import { increment } from './store3/countSlice'
 
 export default function App3() {
 
-    const [count, setCount] = useState<number>(0)
+    const count = useAppSelector(state => state.countReducer.count)
+    const dispatch = useAppDispatch()
 
-    const increment = () => {
-        setCount(count => count + 1)
+    const incrementCount = () => {
+        dispatch(increment({incValue: 4}))
     }
 
     return (
         <div>
             <h1>{count}</h1>
-            <button onClick={increment}>INC</button>
+            <button onClick={incrementCount}>INC</button>
         </div>
     )
 }

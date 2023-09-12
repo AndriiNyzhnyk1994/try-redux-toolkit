@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 export const useAppDispatch = () => useDispatch<AppDispatchType>();
 // using the type <AppDispatchType> allows us to create  
-// a special useDispatch hook to dispatch our store
+// a special useDispatch hook to dispatch exactly our store
 
 export const useAppSelector: TypedUseSelectorHook<RootStateType> = useSelector;
 // we need to add TypedUseSelectorHook<RootStateType> to useAppSelector
