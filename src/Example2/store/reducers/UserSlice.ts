@@ -49,6 +49,7 @@ export const userSlice = createSlice({
             state.isLoading = false
             state.error = ''
             state.users = action.payload
+            // payload as usuall is the object
         },
         [fetchUsers.pending.type]: (state) => {
             state.isLoading = true
@@ -59,5 +60,6 @@ export const userSlice = createSlice({
         },
     }
 })
+
 
 export default userSlice.reducer
