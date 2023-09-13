@@ -4,6 +4,7 @@ import { TaskType } from './App4'
 type PropsType = {
     title: string
     tasks: TaskType[]
+    removeTask: (taskId: string) => void
 }
 
 
@@ -18,11 +19,16 @@ export function TodoList(props: PropsType) {
             <ul>
                 {
                     props.tasks.map(t => {
+
+                        const removeTaskHandler = () => {
+                            props.removeTask(t.taskId)
+                        }
+
                         return (
                             <li key={t.taskId}>
                                 <input type="checkbox" checked={t.isDone} />
                                 <span>{t.title}</span>
-                                <button>x</button>
+                                <button onClick={removeTaskHandler}>x</button>
                             </li>
                         )
                     })

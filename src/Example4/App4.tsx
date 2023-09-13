@@ -19,6 +19,11 @@ export function App4() {
         { taskId: v1(), title: 'Doom 3', isDone: false },
     ])
 
+    const removeTask = (taskId: string) => {
+        setTasks(tasks.filter(t => t.taskId !== taskId))
+    }
+
+
 
     return (
         <div>
@@ -26,6 +31,7 @@ export function App4() {
             <TodoList 
                 title={'Games'}
                 tasks={tasks}
+                removeTask={removeTask}
             />
         </div>
     )
