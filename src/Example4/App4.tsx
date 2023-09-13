@@ -55,9 +55,11 @@ export function App4() {
         tasks[todoListId] = todoListTasks.filter(t => t.taskId !== taskId)
         setTasks({...tasks})
     }
-    const addTask = (newTaskTitle: string) => {
+    const addTask = (todoListId: string, newTaskTitle: string) => {
+        let todoListTasks = tasks[todoListId]
         const newTask: TaskType = { taskId: v1(), title: newTaskTitle, isDone: false }
-        setTasks([newTask, ...tasks])
+        tasks[todoListId] = [newTask, ...todoListTasks]
+        setTasks({...tasks})
     }
     const changeTaskTitle = (taskId: string, newTitle: string) => {
         let task = tasks.find(t => t.taskId === taskId)
