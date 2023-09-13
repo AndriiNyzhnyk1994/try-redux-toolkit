@@ -46,6 +46,11 @@ export function App4() {
     }
     )
 
+    const removeTodoList = (todoListId: string) => {
+        setTodoLists(todoLists.filter(tl => tl.todoListId !== todoListId))
+        delete tasks[todoListId]
+    }
+
 
     const changeFilter = (todoListId: string, value: FilterValuesType) => {
         let todoList = todoLists.find(tl => tl.todoListId === todoListId)
@@ -103,6 +108,7 @@ export function App4() {
                             id={tl.todoListId}
                             title={tl.title}
                             filter={tl.filter}
+                            removeTodoList={removeTodoList}
                             changeFilter={changeFilter}
                             tasks={tasksForTodoList}
                             removeTask={removeTask}
