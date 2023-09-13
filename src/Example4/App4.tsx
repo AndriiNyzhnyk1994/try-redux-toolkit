@@ -49,7 +49,7 @@ export function App4() {
 
     const changeFilter = (todoListId: string, value: FilterValuesType) => {
         let todoList = todoLists.find(tl => tl.todoListId === todoListId)
-        if(todoList) {
+        if (todoList) {
             todoList.filter = value
             setTodoLists([...todoLists])
         }
@@ -81,7 +81,7 @@ export function App4() {
             }
             return t
         })
-        setTasks({...tasks})
+        setTasks({ ...tasks })
     }
 
 
@@ -100,6 +100,7 @@ export function App4() {
                     }
                     return (
                         <TodoList
+                            id={tl.todoListId}
                             title={tl.title}
                             filter={tl.filter}
                             changeFilter={changeFilter}

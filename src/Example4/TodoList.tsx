@@ -4,6 +4,7 @@ import { AddItemForm } from './utils/AddItemForm'
 
 type PropsType = {
     title: string
+    id: string
     tasks: TaskType[]
     filter: FilterValuesType
     changeFilter: (todoListId: string, value: FilterValuesType) => void
@@ -17,7 +18,7 @@ type PropsType = {
 export function TodoList(props: PropsType) {
     
     const addTaskHandler = (title: string) => {
-        props.addTask(title)
+        props.addTask( title)
     }
     
     const onAllHandler = () => {
