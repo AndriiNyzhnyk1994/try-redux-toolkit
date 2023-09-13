@@ -69,14 +69,15 @@ export function App4() {
             setTasks(tasks)
         }
     }
-    const changeTaskStatus = (taskId: string, status: boolean) => {
-        const changedTasks = tasks.map(t => {
+    const changeTaskStatus = (todoListId: string, taskId: string, status: boolean) => {
+        let todoListTasks = tasks[todoListId]
+        tasks[todoListId] = todoListTasks.map(t => {
             if (t.taskId === taskId) {
                 return { ...t, isDone: status }
             }
             return t
         })
-        setTasks(changedTasks)
+        setTasks({...tasks})
     }
 
 
