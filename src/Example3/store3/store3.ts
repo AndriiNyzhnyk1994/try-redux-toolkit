@@ -21,4 +21,4 @@ export type AppStoreType = ReturnType<typeof setupStore3>
 export type AppDispatchType = AppStoreType['dispatch']
 
 export const useAppDispatch = () => useDispatch<AppDispatchType>()
-export const useAppSelector: TypedUseSelectorHook<RootStateType> = useSelector;
+export const useAppSelector3: TypedUseSelectorHook<RootStateType> = useSelector;

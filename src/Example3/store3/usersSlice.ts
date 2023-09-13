@@ -26,6 +26,7 @@ const usersSlice = createSlice({
                 name: action.payload.name,
                 age: action.payload.age
             }
+            state.users = [newUser, ...state.users]
         }
     }
 })
