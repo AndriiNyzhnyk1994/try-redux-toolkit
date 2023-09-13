@@ -50,8 +50,10 @@ export function App4() {
     const changeFilter = (value: FilterValuesType) => {
         setFilter(value)
     }
-    const removeTask = (taskId: string) => {
-        setTasks(tasks.filter(t => t.taskId !== taskId))
+    const removeTask = (todoListId: string, taskId: string) => {
+        let todoListTasks = tasks[todoListId]
+        tasks[todoListId] = todoListTasks.filter(t => t.taskId !== taskId)
+        setTasks({...tasks})
     }
     const addTask = (newTaskTitle: string) => {
         const newTask: TaskType = { taskId: v1(), title: newTaskTitle, isDone: false }
