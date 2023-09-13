@@ -5,6 +5,9 @@ type PropsType = {
     title: string
     tasks: TaskType[]
     removeTask: (taskId: string) => void
+    addTask: (taskId: string, newTaskTitle: string) => void
+    changeTaskStatus: (taskId: string, status: boolean) => void
+    changeTaskTitle: (taskId: string, newTitle: string) => void
 }
 
 
