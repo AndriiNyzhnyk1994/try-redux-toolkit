@@ -1,11 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import countReducer from './countSlice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-
+import usersReducer from './usersSlice'
 
 
 const rootReducer = combineReducers({
-    countReducer
+    countReducer,
+    usersReducer
 })
 
 
