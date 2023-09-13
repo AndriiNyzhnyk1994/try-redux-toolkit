@@ -15,18 +15,11 @@ type PropsType = {
 
 
 export function TodoList(props: PropsType) {
-    const [title, setTitle] = useState('')
-    const [error, setError] = useState<null | string>(null)
-
-    const addTaskHandler = () => {
+    
+    const addTaskHandler = (title: string) => {
         props.addTask(title)
     }
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-        if(error) {
-            setError(null)
-        } 
-    } 
+    
     const onAllHandler = () => {
         props.changeFilter('all')        
     }
@@ -39,8 +32,6 @@ export function TodoList(props: PropsType) {
         props.changeFilter('completed')        
     }
 
-
-
     return (
         <div>
             <h2>{props.title}</h2>
@@ -48,11 +39,9 @@ export function TodoList(props: PropsType) {
             <ul>
                 {
                     props.tasks.map(t => {
-
                         const removeTaskHandler = () => {
                             props.removeTask(t.taskId)
                         }
-
                         return (
                             <li key={t.taskId}>
                                 <input type="checkbox" checked={t.isDone} />

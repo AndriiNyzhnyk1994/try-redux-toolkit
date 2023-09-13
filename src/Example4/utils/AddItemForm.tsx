@@ -24,8 +24,6 @@ export function AddItemForm(props: PropsType) {
         } 
     } 
 
-
-
     return (
         <div>
             <input value={title} onChange={onChangeHandler} />

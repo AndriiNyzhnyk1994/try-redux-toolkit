@@ -56,7 +56,6 @@ export function App4() {
         tasksForTodoList = tasks.filter(t => t.isDone)
     }
 
-
     return (
         <div>
             <h1>Example 4</h1>
