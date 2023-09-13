@@ -47,8 +47,12 @@ export function App4() {
     )
 
 
-    const changeFilter = (value: FilterValuesType) => {
-        setFilter(value)
+    const changeFilter = (todoListId: string, value: FilterValuesType) => {
+        let todoList = todoLists.find(tl => tl.todoListId === todoListId)
+        if(todoList) {
+            todoList.filter = value
+            setTodoLists([...todoLists])
+        }
     }
     const removeTask = (todoListId: string, taskId: string) => {
         let todoListTasks = tasks[todoListId]
