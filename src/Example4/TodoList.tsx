@@ -18,19 +18,19 @@ type PropsType = {
 export function TodoList(props: PropsType) {
     
     const addTaskHandler = (title: string) => {
-        props.addTask( title)
+        props.addTask(props.id, title)
     }
     
     const onAllHandler = () => {
-        props.changeFilter('all')        
+        props.changeFilter(props.id, 'all')        
     }
     
     const onActiveHandler = () => {
-        props.changeFilter('active')        
+        props.changeFilter(props.id,'active')        
     }
      
     const onCompletedHandler = () => {
-        props.changeFilter('completed')        
+        props.changeFilter(props.id, 'completed')        
     }
 
     return (
@@ -41,7 +41,7 @@ export function TodoList(props: PropsType) {
                 {
                     props.tasks.map(t => {
                         const removeTaskHandler = () => {
-                            props.removeTask(t.taskId)
+                            props.removeTask(props.id, t.taskId)
                         }
                         return (
                             <li key={t.taskId}>
