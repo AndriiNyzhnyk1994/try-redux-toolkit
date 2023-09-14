@@ -7,6 +7,7 @@ type PropsType = {
     id: string
     tasks: TaskType[]
     filter: FilterValuesType
+    addTodoList: (newTodoTitle: string) => void
     removeTodoList: (todoListId: string) => void
     changeFilter: (todoListId: string, value: FilterValuesType) => void
     removeTask: (todoListId: string, taskId: string) => void
@@ -50,6 +51,7 @@ export function TodoList(props: PropsType) {
                         const removeTaskHandler = () => {
                             props.removeTask(props.id, t.taskId)
                         }
+                        
                         return (
                             <li key={t.taskId}>
                                 <input type="checkbox" checked={t.isDone} />
