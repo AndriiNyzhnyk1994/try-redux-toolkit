@@ -29,8 +29,8 @@ export function App4() {
     const todoLists: TodoListType[] = useAppSelector4(state => state.todoListsReducer.todoLists)
     const tasks: TasksStateType = useAppSelector4(state => state.tasksReducer)
 
-    const dispatch = useAppDispatch4()
 
+    const dispatch = useAppDispatch4()
 
 // _______________________ TodoList functions _________________________________
     const addTodoList = (newTodoTitle: string) => {
@@ -81,7 +81,6 @@ export function App4() {
                                 id={tl.todoListId}
                                 title={tl.title}
                                 filter={tl.filter}
-                                addTodoList={addTodoList}
                                 removeTodoList={removeTodoList}
                                 changeTodoListTitle={changeTodoListTitle}
                                 changeFilter={changeFilter}
