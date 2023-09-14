@@ -22,9 +22,6 @@ export function EditableSpan(props: PropsType) {
     }
 
 
-
-
-
     return (
         editMode
             ? <input
