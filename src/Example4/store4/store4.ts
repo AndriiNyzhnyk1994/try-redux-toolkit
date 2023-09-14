@@ -8,6 +8,8 @@ const rootReducer = combineReducers({
     tasksReducer
 })
 
+
+
 export const setupStore4 = () => {
     return configureStore({
         reducer: rootReducer

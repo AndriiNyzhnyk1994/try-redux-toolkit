@@ -1,6 +1,7 @@
 import { v1 } from "uuid";
 import { FilterValuesType, TaskType, TasksStateType, TodoListType } from "../App4";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { addTodoListAC, removeTodoListAC } from "./todoListsSlice";
 
 type InitialStateType = {
     todoLists: TodoListType[]
@@ -37,6 +38,18 @@ const todoListsSlice = createSlice({
                 return t
             })
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(removeTodoListAC,
+                (state, action: PayloadAction<{ todoListId: string }>) => {
+                    delete state[action.payload.todoListId]
+                }
+            )
+            .addCase(addTodoListAC,
+                (state, action: PayloadAction<{ newTodoId: string, newTodoTitle: string }>) => {
+                    state[action.payload.newTodoId] = []
+                })
     }
 })
 
@@ -44,7 +57,7 @@ export const {
     addTaskAC,
     removeTaskAC,
     changeTaskTitleAC,
-    changeTaskStatusAC} = todoListsSlice.actions
+    changeTaskStatusAC } = todoListsSlice.actions
 
 
 export default todoListsSlice.reducer

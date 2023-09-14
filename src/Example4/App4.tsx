@@ -28,9 +28,8 @@ export function App4() {
 
     const todoLists: TodoListType[] = useAppSelector4(state => state.todoListsReducer.todoLists)
     const tasks: TasksStateType = useAppSelector4(state => state.tasksReducer)
-
-
     const dispatch = useAppDispatch4()
+    
 
 // _______________________ TodoList functions _________________________________
     const addTodoList = (newTodoTitle: string) => {
@@ -63,8 +62,9 @@ export function App4() {
 
 
     return (
-        <div>
+        <div style={{textAlign: 'center'}}>
             <h1>Example 4</h1>
+            <AddItemForm addItem={addTodoList} />
             {
                 todoLists.map(tl => {
                     let tasksForTodoList = tasks[tl.todoListId]
@@ -76,7 +76,6 @@ export function App4() {
                     }
                     return (
                         <div key={tl.todoListId}>
-                            <AddItemForm addItem={addTodoList} />
                             <TodoList
                                 id={tl.todoListId}
                                 title={tl.title}
