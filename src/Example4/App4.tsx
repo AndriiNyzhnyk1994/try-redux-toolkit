@@ -20,8 +20,7 @@ export type TasksStateType = {
 
 
 export function App4() {
-    const [filter, setFilter] = useState<FilterValuesType>('all')
-
+    
     const todoListId01 = v1()
     const todoListId02 = v1()
 
@@ -97,10 +96,10 @@ export function App4() {
                 todoLists.map(tl => {
 
                     let tasksForTodoList = tasks[tl.todoListId]
-                    if (filter === 'active') {
+                    if (tl.filter === 'active') {
                         tasksForTodoList = tasks[tl.todoListId].filter(t => !t.isDone)
                     }
-                    if (filter === 'completed') {
+                    if (tl.filter === 'completed') {
                         tasksForTodoList = tasks[tl.todoListId].filter(t => t.isDone)
                     }
                     return (
