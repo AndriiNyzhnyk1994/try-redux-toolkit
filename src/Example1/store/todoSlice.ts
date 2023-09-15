@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ToDoType } from "../App1";
+import { RootStateType } from ".";
 
 
 
@@ -21,7 +22,7 @@ export const fetchTodos = createAsyncThunk(
     // they named automaticaly in reducers based on methods' names,
     // and here we must create name with the same style like reducer does,
     // but manually
-    async function (_, {rejectWithValue}) {
+    async function (_, { rejectWithValue }) {
         // the 1-st parameter of async function is any data,
         // that we can pass as arguments when we calling fetchTodos()
         // we did it in useEffect inside App1 component
@@ -38,38 +39,98 @@ export const fetchTodos = createAsyncThunk(
 
         try {
             const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=20')
-            
-            if(!response.ok) {
+
+            if (!response.ok) {
                 throw new Error('Something went wrong')
             }
 
             const data = await response.json()
             return data
-        } catch(error: any | {message?: string} ) {
+        } catch (error: any | { message?: string }) {
             return rejectWithValue(error.message)
         }
-        
+
     }
 )
 
 
 export const deleteTodo = createAsyncThunk(
     'todos/deleteTodo',
-    async function( id: string, {rejectWithValue, dispatch}) {
+    async function (id: string, { rejectWithValue, dispatch }) {
         try {
             const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
                 method: 'DELETE'
             })
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error('Cannot delete task. Server error.')
             }
-            dispatch(removeTodo({id} as any))
+            dispatch(removeTodo({ id }))
 
-        } catch (error: any | {message?: string}) {
+        } catch (error: any | { message?: string }) {
             return rejectWithValue(error.message)
         }
     }
 )
+
+export const toggleStatus = createAsyncThunk(
+    'todos/toggleStatus',
+    async function (id: string, { rejectWithValue, dispatch, getState }) {
+        const state = getState() as RootStateType
+        let todo = state.todos.list.find(t => t.id === id)
+
+        try {
+            const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    completed: !todo?.completed
+                })
+            })
+
+            if (!response.ok) {
+                throw new Error('cannot toggle status')
+            }
+            const data = await response.json()
+            dispatch(changeTodoStatus({ id }))
+
+
+        } catch (error: any | { message?: string }) {
+            return rejectWithValue(error.message)
+        }
+    }
+)
+export const addNewTodo = createAsyncThunk(
+    'todos/addNewTodo',
+    async function (title: string, { dispatch, rejectWithValue }) {
+        try {
+            const todo = {
+                userId: 1,
+                completed: false,
+                title,
+            }
+            const response = await fetch(`https://jsonplaceholder.typicode.com/todos`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(todo)
+            })
+
+            if (!response.ok) {
+                throw new Error('cannot toggle status')
+            }
+            const data = await response.json()
+            dispatch(addTodo({ title }))
+
+
+        } catch (error: any | { message?: string }) {
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
 
 
 
@@ -77,18 +138,18 @@ const todoSlice = createSlice({
     name: 'todos',
     initialState,
     reducers: {
-        addTodo(state, action: PayloadAction<string>) {
+        addTodo(state, action: PayloadAction<{ title: string }>) {
             state.list.push({
                 id: new Date().toISOString(),
                 completed: false,
-                title: action.payload
+                title: action.payload.title
             })
         },
-        removeTodo(state, action: PayloadAction<{id: string}>) {
+        removeTodo(state, action: PayloadAction<{ id: string }>) {
             state.list = state.list.filter(t => t.id !== action.payload.id)
         },
-        changeTodoStatus(state, action: PayloadAction<string>) {
-            const todo = state.list.find(t => t.id === action.payload)
+        changeTodoStatus(state, action: PayloadAction<{ id: string }>) {
+            const todo = state.list.find(t => t.id === action.payload.id)
             if (todo) {
                 todo.completed = !todo.completed
             }
@@ -108,8 +169,16 @@ const todoSlice = createSlice({
         [fetchTodos.rejected.type]: (state, action) => {
             state.status = 'rejected'
             state.error = action.payload
-         },
-         
+        },
+        [deleteTodo.rejected.type]: (state, action) => {
+            state.status = 'rejected'
+            state.error = action.payload
+        },
+        [toggleStatus.rejected.type]: (state, action) => {
+            state.status = 'rejected'
+            state.error = action.payload
+        },
+
     }
 })
 

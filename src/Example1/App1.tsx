@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { NewTodoForm } from './Components/NewTodoForm';
-import { addTodo, fetchTodos } from './store/todoSlice';
+import { addNewTodo, addTodo, fetchTodos } from './store/todoSlice';
 import { Todolist } from './Components/Todolist';
 import { useAppDispatch, useAppSelector } from './hook';
 
@@ -17,7 +17,7 @@ function App1() {
     const { error, status } = useAppSelector(state => state.todos)
 
     const addTask = () => {
-        dispatch(addTodo(text))
+        dispatch(addNewTodo(text))
         if (text.trim()) {
             setText('')
         }
