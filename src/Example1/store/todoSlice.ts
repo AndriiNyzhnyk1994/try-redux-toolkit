@@ -176,6 +176,10 @@ const todoSlice = createSlice({
             state.status = 'rejected'
             state.error = action.payload
         },
+        [addNewTodo.rejected.type]: (state, action) => {
+            state.status = 'rejected'
+            state.error = action.payload
+        },
 
     }
 })
