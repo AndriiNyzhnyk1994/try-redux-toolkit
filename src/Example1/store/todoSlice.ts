@@ -22,7 +22,7 @@ export const fetchTodos = createAsyncThunk(
     // and here we must create name with the same style like reducer does,
     // but manually
     async function() {
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos')
+        const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=20')
         const data = await response.json()
         return data
     }
