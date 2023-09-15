@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { NewTodoForm } from './Components/NewTodoForm';
-import { addTodo } from './store/todoSlice';
+import { addTodo, fetchTodos } from './store/todoSlice';
 import { Todolist } from './Components/Todolist';
 import { useAppDispatch } from './hook';
 
@@ -21,6 +21,10 @@ function App1() {
             setText('')
         }
     }
+
+    useEffect(() => {
+        dispatch(fetchTodos())
+    }, [dispatch])
 
 
     return (
