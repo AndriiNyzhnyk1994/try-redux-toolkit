@@ -16,15 +16,23 @@ const initialState: TodosState = {
 }
 
 export const fetchTodos = createAsyncThunk(
-    'todos/fetchTodos', 
+    'todos/fetchTodos',
     // we should name this thunk as redecers' actions named.
     // they named automaticaly in reducers based on methods' names,
     // and here we must create name with the same style like reducer does,
     // but manually
-    async function() {
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=20')
-        const data = await response.json()
-        return data
+    async function () {
+        try {
+            const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=20')
+            
+            if(!response.ok) {
+                throw new Error('Something went wrong')
+            }
+
+            const data = await response.json()
+            return data
+        } catch(error) {}
+        
     }
 )
 
@@ -38,14 +46,14 @@ const todoSlice = createSlice({
                 id: new Date().toISOString(),
                 completed: false,
                 title: action.payload
-            })          
+            })
         },
         removeTodo(state, action: PayloadAction<string>) {
             state.list = state.list.filter(t => t.id !== action.payload)
         },
         changeTodoStatus(state, action: PayloadAction<string>) {
             const todo = state.list.find(t => t.id === action.payload)
-            if(todo) {
+            if (todo) {
                 todo.completed = !todo.completed
             }
         }
@@ -53,7 +61,7 @@ const todoSlice = createSlice({
     extraReducers: {
         [fetchTodos.pending.type]: (state) => {
             state.status = 'loading...'
-            if(state.error) {
+            if (state.error) {
                 state.error = null
             }
         },
@@ -61,9 +69,9 @@ const todoSlice = createSlice({
             state.status = 'resolved'
             state.list = action.payload
         },
-        [fetchTodos.rejected.type]: (state, action) => {},
+        [fetchTodos.rejected.type]: (state, action) => { },
     }
 })
 
-export const {addTodo, removeTodo, changeTodoStatus} = todoSlice.actions
+export const { addTodo, removeTodo, changeTodoStatus } = todoSlice.actions
 export default todoSlice.reducer
