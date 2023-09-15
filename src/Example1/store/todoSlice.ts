@@ -21,7 +21,21 @@ export const fetchTodos = createAsyncThunk(
     // they named automaticaly in reducers based on methods' names,
     // and here we must create name with the same style like reducer does,
     // but manually
-    async function () {
+    async function (_, {rejectWithValue}) {
+        // the 1-st parameter of async function is any data,
+        // that we can pass as arguments when we calling fetchTodos()
+        // we did it in useEffect inside App1 component
+        // if we have nothing to pass in call of fetchTodos()
+        // we should write `_` symbol as 1-st parameter (without brackets)
+
+        // 2-nd parameter is the object with configurations
+        // it has some prop-s, like getState,
+        // rejectWithValue, fullfillWithValue ect.
+        // now we use rejectWithValue. 
+        // It allows us to place the error info to fetchTodos.rejected
+        // error info will be stored in action.payload 
+        // inside fetchTodos.rejected extraReducer
+
         try {
             const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=20')
             
@@ -31,7 +45,9 @@ export const fetchTodos = createAsyncThunk(
 
             const data = await response.json()
             return data
-        } catch(error) {}
+        } catch(error: any | {message?: string} ) {
+            return rejectWithValue(error.message)
+        }
         
     }
 )
@@ -60,7 +76,7 @@ const todoSlice = createSlice({
     },
     extraReducers: {
         [fetchTodos.pending.type]: (state) => {
-            state.status = 'loading...'
+            state.status = 'loading'
             if (state.error) {
                 state.error = null
             }
@@ -69,7 +85,10 @@ const todoSlice = createSlice({
             state.status = 'resolved'
             state.list = action.payload
         },
-        [fetchTodos.rejected.type]: (state, action) => { },
+        [fetchTodos.rejected.type]: (state, action) => {
+            state.status = 'rejected'
+            state.error = action.payload
+         },
     }
 })
 

@@ -3,7 +3,7 @@ import './App.css';
 import { NewTodoForm } from './Components/NewTodoForm';
 import { addTodo, fetchTodos } from './store/todoSlice';
 import { Todolist } from './Components/Todolist';
-import { useAppDispatch } from './hook';
+import { useAppDispatch, useAppSelector } from './hook';
 
 export type ToDoType = {
     id: string
@@ -14,10 +14,11 @@ export type ToDoType = {
 function App1() {
     const [text, setText] = useState('')
     const dispatch = useAppDispatch()
+    const { error, status } = useAppSelector(state => state.todos)
 
     const addTask = () => {
         dispatch(addTodo(text))
-        if(text.trim()) {
+        if (text.trim()) {
             setText('')
         }
     }
@@ -34,7 +35,11 @@ function App1() {
                 handleAction={addTask}
                 updateText={setText}
             />
+            {status === 'loading' && <h2>Loading...</h2>}
+            {error && <h2>something wrong: {error}</h2>}
+            
             <Todolist />
+
         </div>
     );
 }
