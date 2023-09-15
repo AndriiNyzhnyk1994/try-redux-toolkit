@@ -1,5 +1,5 @@
 import React from 'react'
-import { ToDoType } from '../App'
+import { ToDoType } from '../App1'
 import { useAppDispatch } from '../hook'
 import { changeTodoStatus, removeTodo } from '../store/todoSlice'
 

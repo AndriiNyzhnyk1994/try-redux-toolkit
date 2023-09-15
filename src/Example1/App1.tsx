@@ -11,7 +11,7 @@ export type ToDoType = {
     completed: boolean
 }
 
-function App() {
+function App1() {
     const [text, setText] = useState('')
     const dispatch = useAppDispatch()
 
@@ -35,4 +35,4 @@ function App() {
     );
 }
 
-export default App;
+export default App1;

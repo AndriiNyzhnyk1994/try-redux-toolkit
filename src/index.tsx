@@ -9,6 +9,8 @@ import App3 from './Example3/App3';
 import { setupStore3 } from './Example3/store3/store3';
 import { setupStore4 } from './Example4/store4/store4';
 import { App4 } from './Example4/App4';
+import { store1 } from './Example1/store';
+import App1 from './Example1/App1';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,8 +24,8 @@ const store3 = setupStore3()
 const store4 = setupStore4()
 
 
-root.render(<Provider store={store4}>
-  <App4 />
+root.render(<Provider store={store1}>
+  <App1 />
 </Provider>)
 
 

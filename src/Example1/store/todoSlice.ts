@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ToDoType } from "../App";
+import { ToDoType } from "../App1";
 
 
 
