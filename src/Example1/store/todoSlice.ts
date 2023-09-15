@@ -122,7 +122,7 @@ export const addNewTodo = createAsyncThunk(
                 throw new Error('cannot toggle status')
             }
             const data = await response.json()
-            dispatch(addTodo({ title }))
+            dispatch(addTodo(data))
 
 
         } catch (error: any | { message?: string }) {
@@ -138,12 +138,10 @@ const todoSlice = createSlice({
     name: 'todos',
     initialState,
     reducers: {
-        addTodo(state, action: PayloadAction<{ title: string }>) {
-            state.list.push({
-                id: new Date().toISOString(),
-                completed: false,
-                title: action.payload.title
-            })
+        addTodo(state, action: PayloadAction<ToDoType>) {
+            const {id, completed, title} = action.payload
+
+            state.list.push({ id, completed, title })
         },
         removeTodo(state, action: PayloadAction<{ id: string }>) {
             state.list = state.list.filter(t => t.id !== action.payload.id)
