@@ -33,7 +33,7 @@ export const fetchTodos = createAsyncThunk(
         // it has some prop-s, like getState,
         // rejectWithValue, fullfillWithValue ect.
         // now we use rejectWithValue. 
-        // It allows us to place the error info to fetchTodos.rejected
+        // It allows us to place the error info to fetchTodos.rejected by return. 
         // error info will be stored in action.payload 
         // inside fetchTodos.rejected extraReducer
 
