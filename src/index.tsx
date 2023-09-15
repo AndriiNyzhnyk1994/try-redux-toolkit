@@ -17,15 +17,15 @@ const root = ReactDOM.createRoot(
 )
 
 const store = setupStore()
-// function setupStore returns our store
+// function setupStore returns our store (ex2)
 
 const store3 = setupStore3()
 
 const store4 = setupStore4()
 
 
-root.render(<Provider store={store1}>
-  <App1 />
+root.render(<Provider store={store}>
+  <App2 />
 </Provider>)
 
 
