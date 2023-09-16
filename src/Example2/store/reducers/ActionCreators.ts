@@ -12,6 +12,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 //         // ▲ ▲ ▲ changed isLoading to true
 //         const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users')
 //         // ▲ ▲ ▲ made request and waiting to response
+//         //<IUser[]> - this is what we will get as data (in responce.data) 
+
 //         dispatch(userSlice.actions.userFetchingSuccess(response.data))
 //         // ▲ ▲ ▲ add users from response to our store
 //     } catch(e: any | {message: string}) {
@@ -19,7 +21,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 //     }
 // } 
 // redux-toolkit allows us to simplify this process abow ▲ ▲ ▲
-// it's a built-in createAsyncThunk functon
+// it's a built-in createAsyncThunk functon below  ▼ ▼ ▼
 
 export const fetchUsers = createAsyncThunk(
     'user/fetchAll',
