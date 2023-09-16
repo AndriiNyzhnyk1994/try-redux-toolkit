@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from './hooks/redux'
 import { userSlice } from './store/reducers/UserSlice'
 import { fetchUsers } from './store/reducers/ActionCreators'
 import { PostsContainer } from './components/PostsContainer'
+import { PostsContainer2 } from './components/PostsContainer2'
 
 export function App2() {
     const { users, count, isLoading, error } = useAppSelector(state => state.userReducer)
@@ -22,8 +23,11 @@ export function App2() {
 
     return (
         <div>
-            
-            <PostsContainer/> 
+
+            <div style={{display: 'flex', textAlign: 'center', padding: '5px'}}>
+                <PostsContainer />
+                <PostsContainer2 />
+            </div>
 
             {/* {isLoading && <h1>LOADING...</h1>}
             {error && <h1>{error}</h1>}
