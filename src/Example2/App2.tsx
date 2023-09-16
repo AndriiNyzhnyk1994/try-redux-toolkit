@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from './hooks/redux'
 import { userSlice } from './store/reducers/UserSlice'
 import { fetchUsers } from './store/reducers/ActionCreators'
+import { PostsContainer } from './components/PostsContainer'
 
 export function App2() {
     const { users, count, isLoading, error } = useAppSelector(state => state.userReducer)
@@ -22,7 +23,7 @@ export function App2() {
     return (
         <div>
             
-
+            <PostsContainer/> 
 
             {/* {isLoading && <h1>LOADING...</h1>}
             {error && <h1>{error}</h1>}

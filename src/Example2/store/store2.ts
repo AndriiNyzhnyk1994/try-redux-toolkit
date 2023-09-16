@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer,
-        //it's something like united reducer
+        //it's something like united reducer o☺
         middleware: (getDefaultMiddleware) => {
            return getDefaultMiddleware().concat(postAPI.middleware)
         }
