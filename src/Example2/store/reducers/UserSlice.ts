@@ -44,14 +44,21 @@ export const userSlice = createSlice({
         },
     },
     extraReducers: {
+        // when we created fetchUsers by `createAsyncThunk`,
+        // fetchUsets have got a special prorerties (pending, fulfilled, rejected) 
+        // and while we do a request on the server, it's properties 
+        // work like lifecycle method in React Components
+        // so we can handle any logic while at any stage of request-responce
+        // below we created 
+        [fetchUsers.pending.type]: (state) => {
+            state.isLoading = true
+        },
         [fetchUsers.fulfilled.type]: (state, action: PayloadAction<IUser[]>) => {
             state.isLoading = false
             state.error = ''
             state.users = action.payload
             // payload usually is the object
-        },
-        [fetchUsers.pending.type]: (state) => {
-            state.isLoading = true
+            // in this case payload === data that we returned from fetchUsers
         },
         [fetchUsers.rejected.type]: (state, action: PayloadAction<string>) => {
             state.isLoading = false

@@ -19,8 +19,6 @@ export function App2() {
         dispatch(fetchUsers())
     }, [])
 
-
-
     return (
         <div>
             {isLoading && <h1>LOADING...</h1>}
