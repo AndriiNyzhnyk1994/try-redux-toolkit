@@ -44,12 +44,17 @@ export const userSlice = createSlice({
         },
     },
     extraReducers: {
-        // when we created fetchUsers by `createAsyncThunk`,
-        // fetchUsets have got a special prorerties (pending, fulfilled, rejected) 
+        // Before, when we created fetchUsers by `createAsyncThunk`,
+        // fetchUsers have got automatically a special prorerties:
+        // (pending, fulfilled, rejected) 
         // and while we do a request on the server, it's properties 
         // work like lifecycle method in React Components
-        // so we can handle any logic while at any stage of request-responce
-        // below we created 
+        // so we can handle any logic while at any stage of request-responce process
+        // Below we created a few extra reducers, that will be called 
+        // when we will dispatch fetchUsers thunk
+
+        // [fetching.pending.type] === 'user/fetchAll/pending'
+        
         [fetchUsers.pending.type]: (state) => {
             state.isLoading = true
         },

@@ -21,9 +21,12 @@ export function App2() {
 
     return (
         <div>
-            {isLoading && <h1>LOADING...</h1>}
+            
+
+
+            {/* {isLoading && <h1>LOADING...</h1>}
             {error && <h1>{error}</h1>}
-            {JSON.stringify(users, null, 2)}
+            {JSON.stringify(users, null, 2)} */}
 
             {/* <div>
                 <h1>{count}</h1>
