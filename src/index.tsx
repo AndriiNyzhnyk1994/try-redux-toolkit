@@ -24,8 +24,8 @@ const store3 = setupStore3()
 const store4 = setupStore4()
 
 
-root.render(<Provider store={store1}>
-  <App1 />
+root.render(<Provider store={store4}>
+  <App4 />
 </Provider>)
 
 
