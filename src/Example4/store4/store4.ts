@@ -20,5 +20,3 @@ export type RootStateType4 = ReturnType<typeof rootReducer>
 export type AppStoreType4 = ReturnType<typeof setupStore4>
 export type AppDispatchType4 = AppStoreType4['dispatch']
 
-export const useAppDispatch4 = () => useDispatch<AppDispatchType4>()
-export const useAppSelector4: TypedUseSelectorHook<RootStateType4> = useSelector;

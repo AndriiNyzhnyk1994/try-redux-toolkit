@@ -1,11 +1,12 @@
 import { v1 } from "uuid";
 import { FilterValuesType, TodoListType } from "../App4";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { fetchTodoLists } from "./ActionCreators";
 
 type InitialStateType = {
     todoLists: TodoListType[]
 }
-
+ 
 const initialState: InitialStateType = {
     todoLists: []
 }
@@ -39,6 +40,12 @@ const todoListsSlice = createSlice({
                 todoList.filter = action.payload.value
             }
         }
+    },
+    extraReducers: {
+        [fetchTodoLists.pending.type]: (state, action: PayloadAction<{todoLists: TodoListType[]}>) => {
+            state.todoLists = action.payload.todoLists   
+        },
+         
     }
 })
 

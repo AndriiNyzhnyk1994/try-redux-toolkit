@@ -22,7 +22,7 @@ function App1() {
             setText('')
         }
     }
-
+ 
     useEffect(() => {
         dispatch(fetchTodos())
     }, [dispatch])

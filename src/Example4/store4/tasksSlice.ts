@@ -2,13 +2,12 @@ import { v1 } from "uuid";
 import { FilterValuesType, TaskType, TasksStateType, TodoListType } from "../App4";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { addTodoListAC, removeTodoListAC } from "./todoListsSlice";
+import { fetchTodoLists } from "./ActionCreators";
 
-type InitialStateType = {
-    todoLists: TodoListType[]
-}
+
 
 const initialState: TasksStateType = {}
-
+ 
 const todoListsSlice = createSlice({
     name: 'todoLists',
     initialState,
@@ -50,6 +49,7 @@ const todoListsSlice = createSlice({
                 (state, action: PayloadAction<{ newTodoId: string, newTodoTitle: string }>) => {
                     state[action.payload.newTodoId] = []
                 })
+            
     }
 })
 

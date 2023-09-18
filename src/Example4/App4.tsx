@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { v1 } from 'uuid'
 import { TodoList } from './TodoList'
 import { AddItemForm } from './utils/AddItemForm'
-import { useAppDispatch4, useAppSelector4 } from './store4/store4'
 import { addTodoListAC, changeFilterAC, changeTodoListTitleAC, removeTodoListAC } from './store4/todoListsSlice'
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './store4/tasksSlice'
+import { fetchTodoLists } from './store4/ActionCreators'
+import { useAppDispatch4, useAppSelector4 } from './store4/hooks'
 
 
 export type TaskType = {
@@ -59,7 +60,15 @@ export function App4() {
     const changeTaskStatus = (todoListId: string, taskId: string, status: boolean) => {
         dispatch(changeTaskStatusAC({todoListId, taskId, status}))
     }
+// __________________________useEffect______________________________________
 
+
+    useEffect(() => {
+        
+        dispatch(fetchTodoLists())
+    },[])
+
+   
 
     return (
         <div style={{textAlign: 'center'}}>
