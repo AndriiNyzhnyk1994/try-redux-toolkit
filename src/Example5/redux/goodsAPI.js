@@ -4,10 +4,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const goodsAPI = createApi({
     reducerPath: 'goodsAPI',
     // reducer path it is how will dislay goodsAPI in our store 
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3001/'}),
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/' }),
     endpoints: (build) => ({
         getGoods: build.query({
-            query: () => `goods`,
+            query: (limit = '') => `goods?${limit && `_limit=${limit}`}`,
+            // ? =  for requests means that we will use query params
+            // _limit - query param. Responsibility - returns specific amount of items 
         })
     })
 })
@@ -16,4 +18,4 @@ export const goodsAPI = createApi({
 // build.mutate we must use when we need to change server data 
 // (like POST PUT DELETE)
 
-export const {useGetGoodsQuery} = goodsAPI
+export const { useGetGoodsQuery } = goodsAPI

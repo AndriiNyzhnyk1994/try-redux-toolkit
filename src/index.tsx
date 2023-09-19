@@ -18,12 +18,12 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 
-const store2 = setupStore()
-// function setupStore returns our store (ex2)
+// const store2 = setupStore()
+// // function setupStore returns our store (ex2)
 
-const store3 = setupStore3()
+// const store3 = setupStore3()
 
-const store4 = setupStore4()
+// const store4 = setupStore4()
 
 const storeFive = store5
 
