@@ -46,8 +46,7 @@ const tasksSlice = createSlice({
                 state[action.payload.newTodoId] = []
             },
             [fetchTasks.fulfilled.type]: (state, action: PayloadAction<TaskType[]>) => {
-                const todoListTasks = state[action.payload]
-                state[action.payload[0].todoListId] = action.payload
+                
             } }
 })
 
