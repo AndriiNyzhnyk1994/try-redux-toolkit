@@ -11,3 +11,9 @@ export const goodsAPI = createApi({
         })
     })
 })
+// build.query we must use when we need to fetch some data from server 
+// (like GET request)
+// build.mutate we must use when we need to change server data 
+// (like POST PUT DELETE)
+
+export const {useGetGoodsQuery} = goodsAPI
