@@ -12,6 +12,7 @@ import { store1 } from './Example1/store';
 import App1 from './Example1/App1';
 import { setupStore } from './Example2/store/store2';
 import { App5 } from './Example5/App5';
+import { store5 } from './Example5/redux/store5';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -24,9 +25,13 @@ const store3 = setupStore3()
 
 const store4 = setupStore4()
 
+const storeFive = store5
 
 root.render(
-  <App5 />)
+  <Provider store={storeFive}>
+    <App5 />
+  </Provider>
+)
 
 
 reportWebVitals();
