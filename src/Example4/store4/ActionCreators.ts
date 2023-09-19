@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { TaskType, TodoListType } from "../App4";
+import { TodoListType } from "../App4";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -15,8 +15,9 @@ export const fetchTodoLists = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
           const response = await instance.get<TodoListType[]>('todo-lists')
-           
-          return response.data 
+            
+            
+          return response.data
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong')
         }
@@ -25,11 +26,12 @@ export const fetchTodoLists = createAsyncThunk(
 
 
 export const fetchTasks = createAsyncThunk(
-    'todoLists/fetchTasks',
+    'tasks/fetchTasks',
     async (todolistId: string, thunkAPI) => {
         try {
           const response = await instance.get<GetTasksResponseType>(`/todo-lists/${todolistId}/tasks`) 
-          return response.data 
+          
+          return response.data.items
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong')
         }
@@ -41,4 +43,17 @@ export type GetTasksResponseType = {
     items: TaskType[]
     totalCount: number
     error: string | null
+}
+
+export type TaskType = {
+    id: string
+    title: string
+    description?: string
+    todoListId?: string
+    order?: number
+    status?: number
+    priority?: number
+    startDate?: string
+    deadline?: string
+    addedDate?: string
 }

@@ -16,11 +16,11 @@ const todoListsSlice = createSlice({
     initialState,
     reducers: {
         removeTodoListAC(state, action: PayloadAction<{ todoListId: string }>) {
-            state.todoLists = state.todoLists.filter(tl => tl.todoListId !== action.payload.todoListId)
+            state.todoLists = state.todoLists.filter(tl => tl.id !== action.payload.todoListId)
         },
         addTodoListAC(state, action: PayloadAction<{ newTodoId: string, newTodoTitle: string }>) {
             const newTodoList: TodoListType = {
-                todoListId: action.payload.newTodoId,
+                id: action.payload.newTodoId,
                 title: action.payload.newTodoTitle,
                 filter: 'all'
             }
@@ -28,22 +28,22 @@ const todoListsSlice = createSlice({
         },
         changeTodoListTitleAC(state, action: PayloadAction<{ todoListId: string, newTitle: string }>) {
             state.todoLists = state.todoLists.map(tl => {
-                if (tl.todoListId === action.payload.todoListId) {
+                if (tl.id === action.payload.todoListId) {
                     return { ...tl, title: action.payload.newTitle }
                 }
                 return tl
             })
         },
         changeFilterAC(state, action: PayloadAction<{ todoListId: string, value: FilterValuesType }>) {
-            let todoList = state.todoLists.find(tl => tl.todoListId === action.payload.todoListId)
+            let todoList = state.todoLists.find(tl => tl.id === action.payload.todoListId)
             if (todoList) {
                 todoList.filter = action.payload.value
             }
         }
     },
     extraReducers: {
-        [fetchTodoLists.pending.type]: (state, action: PayloadAction<{todoLists: TodoListType[]}>) => {
-            state.todoLists = action.payload.todoLists   
+        [fetchTodoLists.fulfilled.type]: (state, action: PayloadAction<TodoListType[]>) => {
+            state.todoLists = action.payload   
         },
          
     }

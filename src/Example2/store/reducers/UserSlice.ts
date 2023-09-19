@@ -49,7 +49,7 @@ export const userSlice = createSlice({
         // (pending, fulfilled, rejected) 
         // and while we do a request on the server, it's properties 
         // work like lifecycle method in React Components
-        // so we can handle any logic while at any stage of request-responce process
+        // so we can handle any logic while any stage of request-responce process
         // Below we created a few extra reducers, that will be called 
         // when we will dispatch fetchUsers thunk
 

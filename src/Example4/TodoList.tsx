@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useState } from 'react'
-import { FilterValuesType, TaskType } from './App4'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { FilterValuesType, TasksStateType } from './App4'
 import { AddItemForm } from './utils/AddItemForm'
 import { EditableSpan } from './utils/EditableSpan'
+import { useAppDispatch4, useAppSelector4 } from './store4/hooks'
+import { fetchTasks } from './store4/ActionCreators'
 
 type PropsType = {
     title: string
     id: string
-    tasks: TaskType[]
     filter: FilterValuesType
     removeTodoList: (todoListId: string) => void
     changeTodoListTitle: (todoListId: string, newTitle: string) => void
@@ -19,7 +20,7 @@ type PropsType = {
 
 
 export function TodoList(props: PropsType) {
-    
+
     const removeTodoListHandler = () => {
         props.removeTodoList(props.id)
     }
@@ -31,47 +32,64 @@ export function TodoList(props: PropsType) {
     const addTaskHandler = (title: string) => {
         props.addTask(props.id, title)
     }
-    
+
     const onAllHandler = () => {
-        props.changeFilter(props.id, 'all')        
+        props.changeFilter(props.id, 'all')
     }
-    
+
     const onActiveHandler = () => {
-        props.changeFilter(props.id,'active')        
+        props.changeFilter(props.id, 'active')
     }
-     
+
     const onCompletedHandler = () => {
-        props.changeFilter(props.id, 'completed')        
+        props.changeFilter(props.id, 'completed')
     }
-    
+
+    const tasks: TasksStateType = useAppSelector4(state => state.tasksReducer)
+    const dispatch = useAppDispatch4()
+
+    let tasksForTodoList = tasks[props.id]
+    if (props.filter === 'active') {
+        tasksForTodoList = tasks[props.id].filter(t => t.status)
+    }
+    if (props.filter === 'completed') {
+        tasksForTodoList = tasks[props.id].filter(t => !t.status)
+    }
+
+    useEffect(() => {
+
+        dispatch(fetchTasks(props.id))
+    }, [])
+
+
     return (
         <div>
             <button onClick={removeTodoListHandler}>x</button>
             <h2>
-                <EditableSpan title={props.title} changeTitle={changeTodoListTitleHandler}/>
+                <EditableSpan title={props.title} changeTitle={changeTodoListTitleHandler} />
             </h2>
-            <AddItemForm addItem={addTaskHandler}/>
+            <AddItemForm addItem={addTaskHandler} />
             <ul>
-                {
-                    props.tasks.map(t => {
+                {/* {
+                    tasksForTodoList.map(t => {
                         const removeTaskHandler = () => {
-                            props.removeTask(props.id, t.taskId)
+                            props.removeTask(props.id, t.id)
                         }
                         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-                            props.changeTaskStatus(props.id, t.taskId, e.currentTarget.checked)
+                            props.changeTaskStatus(props.id, t.id, e.currentTarget.checked)
                         }
                         const changeTaskTitle = (value: string) => {
-                            props.changeTaskTitle(props.id, t.taskId, value)
+                            props.changeTaskTitle(props.id, t.id, value)
                         }
                         return (
-                            <li key={t.taskId}>
-                                <input type="checkbox" checked={t.isDone} onChange={changeTaskStatus} />
-                                <EditableSpan changeTitle={changeTaskTitle} title={t.title}/>
+                            <li key={t.id}>
+                                <input type="checkbox" checked={!!t.status} onChange={changeTaskStatus} />
+                                <EditableSpan changeTitle={changeTaskTitle} title={t.title} />
                                 <button onClick={removeTaskHandler}>x</button>
                             </li>
                         )
                     })
-                }
+                } */}
 
             </ul>
             <div>

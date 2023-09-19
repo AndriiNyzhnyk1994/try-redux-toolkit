@@ -4,19 +4,16 @@ import { TodoList } from './TodoList'
 import { AddItemForm } from './utils/AddItemForm'
 import { addTodoListAC, changeFilterAC, changeTodoListTitleAC, removeTodoListAC } from './store4/todoListsSlice'
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './store4/tasksSlice'
-import { fetchTodoLists } from './store4/ActionCreators'
+import { TaskType, fetchTodoLists } from './store4/ActionCreators'
 import { useAppDispatch4, useAppSelector4 } from './store4/hooks'
+import { AppDispatchType4 } from './store4/store4'
+import axios from 'axios'
 
 
-export type TaskType = {
-    taskId: string
-    title: string
-    isDone: boolean
-}
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodoListType = {
-    todoListId: string
+    id: string
     title: string
     filter: FilterValuesType
 }
@@ -28,7 +25,7 @@ export type TasksStateType = {
 export function App4() {
 
     const todoLists: TodoListType[] = useAppSelector4(state => state.todoListsReducer.todoLists)
-    const tasks: TasksStateType = useAppSelector4(state => state.tasksReducer)
+    
     const dispatch = useAppDispatch4()
     
 
@@ -63,8 +60,11 @@ export function App4() {
 // __________________________useEffect______________________________________
 
 
+
+
+
+
     useEffect(() => {
-        
         dispatch(fetchTodoLists())
     },[])
 
@@ -76,23 +76,16 @@ export function App4() {
             <AddItemForm addItem={addTodoList} />
             {
                 todoLists.map(tl => {
-                    let tasksForTodoList = tasks[tl.todoListId]
-                    if (tl.filter === 'active') {
-                        tasksForTodoList = tasks[tl.todoListId].filter(t => !t.isDone)
-                    }
-                    if (tl.filter === 'completed') {
-                        tasksForTodoList = tasks[tl.todoListId].filter(t => t.isDone)
-                    }
+                    
                     return (
-                        <div key={tl.todoListId}>
+                        <div key={tl.id}>
                             <TodoList
-                                id={tl.todoListId}
+                                id={tl.id}
                                 title={tl.title}
                                 filter={tl.filter}
                                 removeTodoList={removeTodoList}
                                 changeTodoListTitle={changeTodoListTitle}
                                 changeFilter={changeFilter}
-                                tasks={tasksForTodoList}
                                 removeTask={removeTask}
                                 addTask={addTask}
                                 changeTaskTitle={changeTaskTitle}
