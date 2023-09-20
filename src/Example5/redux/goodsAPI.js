@@ -3,20 +3,29 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const goodsAPI = createApi({
     reducerPath: 'goodsAPI',
-    // reducer path it is how will dislay goodsAPI state in our store 
+    // reducer path it is how will dislay goodsAPI state in our store
+    tagTypes: ['Products'], 
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/' }),
     endpoints: (build) => ({
         getGoods: build.query({
             query: (limit = '') => `goods?${limit && `_limit=${limit}`}`,
             // ? =  for requests means that we will use query params
             // _limit - query param. Responsibility - returns specific amount of items 
+            
+            providesTags: (result) => result 
+                ? [
+                    ...result.map( ({id}) => ({type: 'Products', id}) ),
+                    {type: 'Products', id: 'LIST'}
+                ] 
+                : [{type: 'Products', id: 'LIST'}]
         }),
         addProduct: build.mutation({
             query: (body) => ({
                 url: `goods`,
                 method: 'POST',
                 body,
-            })
+            }),
+            invalidatesTags: [{type: 'Products', id: 'LIST'}]
         })
     })
 })
