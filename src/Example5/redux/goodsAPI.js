@@ -11,8 +11,12 @@ export const goodsAPI = createApi({
             // ? =  for requests means that we will use query params
             // _limit - query param. Responsibility - returns specific amount of items 
         }),
-        deleteGood: build.mutation({
-
+        addProduct: build.mutation({
+            query: (body) => ({
+                url: `goods`,
+                method: 'POST',
+                body,
+            })
         })
     })
 })
@@ -21,7 +25,7 @@ export const goodsAPI = createApi({
 // build.mutation we must use when we need to change server data 
 // (like POST PUT DELETE)
 
-export const { useGetGoodsQuery } = goodsAPI
+export const { useGetGoodsQuery, useAddProductMutation } = goodsAPI
 
 // useGetGoodsQuery - hook that has made automatically by createApi() in goodsAPI
 // this hook's name based on the endpoint name (getGoods)
