@@ -4,7 +4,7 @@ import { useGetGoodsQuery } from './redux/goodsAPI'
 
 export function App5() {
   const [count, setCount] = useState('')
-  const {data = [], isLoading} = useGetGoodsQuery(2)
+  const {data = [], isLoading} = useGetGoodsQuery(count)
   
   // calling hook `useGetGoodsQuery()` means that 
   // right now we send a request to server 
@@ -18,6 +18,14 @@ export function App5() {
 
   return (
     <div>App5
+      <div>
+        <select value={count} onChange={(e) => setCount(e.target.value)}>
+          <option value="''">All</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
       <ul>
         {data.map(item => {
           return <li key={item.id}>{item.name}</li>
