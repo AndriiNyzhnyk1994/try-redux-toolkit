@@ -26,6 +26,13 @@ export const goodsAPI = createApi({
                 body,
             }),
             invalidatesTags: [{type: 'Products', id: 'LIST'}]
+        }),
+        deleteProduct: build.mutation({
+            query: (id) => ({
+                url: `goods/${id}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: [{type: 'Products', id: 'LIST'}]
         })
     })
 })
@@ -34,7 +41,7 @@ export const goodsAPI = createApi({
 // build.mutation we must use when we need to change server data 
 // (like POST PUT DELETE)
 
-export const { useGetGoodsQuery, useAddProductMutation } = goodsAPI
+export const { useGetGoodsQuery, useAddProductMutation, useDeleteProductMutation } = goodsAPI
 
 // useGetGoodsQuery - hook that has made automatically by createApi() in goodsAPI
 // this hook's name based on the endpoint name (getGoods)

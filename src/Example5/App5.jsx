@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useAddProductMutation, useGetGoodsQuery } from './redux/goodsAPI'
+import { useAddProductMutation, useDeleteProductMutation, useGetGoodsQuery } from './redux/goodsAPI'
 
 
 export function App5() {
@@ -20,6 +20,7 @@ export function App5() {
   // second element in array [{isError}] this object is a similar to 
   // like object returned by  useGetGoodQuery
 
+  const [deleteProduct, {isLoading: loading}] = useDeleteProductMutation()
 
   const handleAddProduct = async() => {
     if(newProduct.trim()) {
@@ -27,10 +28,14 @@ export function App5() {
       setNewProduct('')
     }
   }
+  const handleDeleteProduct = async(id) => {
+      await deleteProduct(id).unwrap()
+  }
 
 
 
-  if(isLoading) return <h1>Loading</h1>
+  if(loading) return <h1>add loading</h1>
+
 
 
   return (
@@ -49,7 +54,10 @@ export function App5() {
       </div>
       <ul>
         {data.map(item => {
-          return <li key={item.id}>{item.name}</li>
+          return <li key={item.id}>
+            <span>{item.name}</span>
+            <button onClick={() => {handleDeleteProduct(item.id)}}>x</button>
+          </li>
         })}
       </ul>
     </div>
