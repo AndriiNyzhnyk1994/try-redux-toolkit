@@ -4,6 +4,7 @@ import { useAddProductMutation, useGetGoodsQuery } from './redux/goodsAPI'
 
 export function App5() {
   const [count, setCount] = useState('')
+  const [newProduct, setNewProduct] = useState('')
   const {data = [], isLoading} = useGetGoodsQuery(count)
   // calling hook `useGetGoodsQuery()` means that 
   // right now we send a request to server 
@@ -20,12 +21,24 @@ export function App5() {
   // like object returned by  useGetGoodQuery
 
 
+  const handleAddProduct = async() => {
+    if(newProduct.trim()) {
+      await addProduct({name: newProduct}).unwrap()
+      setNewProduct('')
+    }
+  }
+
+
 
   if(isLoading) return <h1>Loading</h1>
 
 
   return (
     <div>App5
+      <div>
+        <input value={newProduct} onChange={(e) => setNewProduct(e.target.value)}/>
+        <button onClick={handleAddProduct}>Add</button>
+      </div>
       <div>
         <select value={count} onChange={(e) => setCount(e.target.value)}>
           <option value="''">All</option>

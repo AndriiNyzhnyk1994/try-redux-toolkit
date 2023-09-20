@@ -1,16 +1,24 @@
 {
-    "goods": [
-        {
-            "id": 1,
-            "name": "Milk"
-        },
-        {
-            "id": 2,
-            "name": "Bananas"
-        },
-        {
-            "id": 3,
-            "name": "Icecream"
-        }
-    ]
+  "goods": [
+    {
+      "id": 1,
+      "name": "Milk"
+    },
+    {
+      "id": 2,
+      "name": "Bananas"
+    },
+    {
+      "id": 3,
+      "name": "Icecream"
+    },
+    {
+      "name": "ваыфва",
+      "id": 4
+    },
+    {
+      "name": "ццц",
+      "id": 5
+    }
+  ]
 }
