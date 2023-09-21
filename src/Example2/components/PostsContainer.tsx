@@ -5,9 +5,9 @@ import { PostItem } from './PostItem'
 
 export function PostsContainer() {
 
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(100)
 
-  const { data: posts, error, isLoading, refetch,  } = postAPI.useFetchAllPostsQuery(limit)
+  const { data: posts, error, isLoading, refetch, } = postAPI.useFetchAllPostsQuery(limit)
   // state that hook useFetchAllPostsQuery() returns named as `data` ( type IPost[])
   // but in future we want to rename this `data` to `post`
   // so {data: posts} means, that we captured returned `data` 
@@ -16,12 +16,22 @@ export function PostsContainer() {
 
   // `refetch` function makes another request to server
 
-  const [createPost, {}] = postAPI.useCreatePostMutation()
+  const [createPost, { }] = postAPI.useCreatePostMutation()
+  const [updatePost, { }] = postAPI.useUpdatePostMutation()
+  const [deletePost, { }] = postAPI.useDeletePostMutation()
+
 
   const handleCreate = async () => {
     const title = prompt()
-    await createPost({ title, body: 'new body'} as IPost)
-    
+    await createPost({ title, body: 'new body' } as IPost)
+  }
+
+  const handleUpdate = async (post: IPost) => {
+    await updatePost(post)
+  }
+
+  const handleDelete = async (post: IPost) => {
+    await deletePost(post)
   }
 
 
@@ -36,7 +46,12 @@ export function PostsContainer() {
         {error && <h1>Error: Something went wrong</h1>}
         {posts && posts.map(post => {
           return (
-            <PostItem key={post.id} post={post} />
+            <PostItem
+              key={post.id}
+              post={post}
+              remove={handleDelete}
+              update={handleUpdate}
+            />
           )
         })}
       </div>
