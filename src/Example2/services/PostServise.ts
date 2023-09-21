@@ -3,7 +3,8 @@ import { IPost } from "../models/IPost"
 
 export const postAPI = createApi({
     reducerPath: 'postAPI',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com' }),
+    tagTypes: ['Post'],
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001' }),
     endpoints: (build) => ({
         fetchAllPosts: build.query<IPost[], number>({
             // 1. First generic <IPost[]> meains that our hook useFetchAllPostsQuery
@@ -19,10 +20,19 @@ export const postAPI = createApi({
                 url: '/posts',
                 params: {
                     _limit: limit
-                }
+                },
                 // params object helps us to avoid using `?` symbol in URL string
                 // before query parameters
-            })
+            }),
+            providesTags: result => ['Post']
+        }),
+        createPost: build.mutation<IPost, IPost>({
+            query: (post) => ({
+                url: '/posts',
+                method: 'POST',
+                body: post
+            }),
+            invalidatesTags: ['Post']
         })
     })
 })

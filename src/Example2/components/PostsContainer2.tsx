@@ -12,10 +12,6 @@ export function PostsContainer2() {
   // from hook and renamed `data` to `posts`
   // so from now we have a variable `posts: IPost[]` and we can use it in JSX
  
-  useEffect(() => {
-    setTimeout(() => { setLimit(2) }, 2000)
-  }, [])
-
   return (
     <div style={{ marginLeft: '10px' }}>Posts Container 2
       <div className='post__list'>

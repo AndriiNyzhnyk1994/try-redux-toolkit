@@ -14,6 +14,8 @@ import {  setupStore2 } from './Example2/store/store2';
 import { App5 } from './Example5/App5';
 import { store5 } from './Example5/redux/store5';
 
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
