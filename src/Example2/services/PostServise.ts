@@ -14,7 +14,7 @@ export const postAPI = createApi({
             // 3. Finally, how it will be calling:
             //    const { data } = useFetchAllPostsQuery( 5 )
             //    where `data` has type `IPost[]`, and `5` has type number
-            
+             
             query: (limit: number = 5) => ({
                 // parameter `limit` will be accepted as argument in useFetchAllPostsQuery
                 url: '/posts',

@@ -8,6 +8,7 @@ import { TaskType, fetchTodoLists } from './store4/ActionCreators'
 import { useAppDispatch4, useAppSelector4 } from './store4/hooks'
 import { AppDispatchType4 } from './store4/store4'
 import axios from 'axios'
+import { todoListsAPI } from './services/todoListsService'
 
 
 
@@ -25,9 +26,13 @@ export type TasksStateType = {
 export function App4() {
 
     const todoLists: TodoListType[] = useAppSelector4(state => state.todoListsReducer.todoLists)
-    
+
+    const {data: todoListsData} = todoListsAPI.useFetchTodoListsQuery(10)
+
+
     const dispatch = useAppDispatch4()
     
+console.log(todoListsData);
 
 // _______________________ TodoList functions _________________________________
     const addTodoList = (newTodoTitle: string) => {

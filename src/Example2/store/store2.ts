@@ -15,7 +15,7 @@ export const setupStore2 = () => {
            return getDefaultMiddleware().concat(postAPI.middleware)
         }
     }) 
-
+ 
 }
 // setupStore - it's a function that returns a whole store (with its own dispatch)
 

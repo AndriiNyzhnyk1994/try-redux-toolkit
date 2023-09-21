@@ -2,17 +2,22 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import todoListsReducer from './todoListsSlice'
 import tasksReducer from './tasksSlice'
+import { todoListsAPI } from "../services/todoListsService";
 
 const rootReducer = combineReducers({
     todoListsReducer,
-    tasksReducer
+    tasksReducer,
+    [todoListsAPI.reducerPath]: todoListsAPI.reducer
 })
 
 
 
 export const setupStore4 = () => {
     return configureStore({
-        reducer: rootReducer
+        reducer: rootReducer,
+        middleware: (getDefaultMiddleware) => {
+            return getDefaultMiddleware().concat(todoListsAPI.middleware)
+         }
     })
 }
 
