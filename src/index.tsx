@@ -30,8 +30,8 @@ const store4 = setupStore4()
 const storeFive = store5
 
 root.render(
-  <Provider store={store2}>
-    <App2 />
+  <Provider store={store4}>
+    <App4 />
   </Provider>
 )
 
