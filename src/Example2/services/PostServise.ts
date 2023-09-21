@@ -21,6 +21,7 @@ export const postAPI = createApi({
                 params: {
                     _limit: limit
                 },
+                headers: {}
                 // params object helps us to avoid using `?` symbol in URL string
                 // before query parameters
             }),
