@@ -3,7 +3,7 @@ import { postAPI } from '../services/PostServise'
 import { PostItem } from './PostItem'
 
 export function PostsContainer2() {
-  const [limit, setLimit] = useState(1)
+  const [limit, setLimit] = useState(5)
 
   const { data: posts, error, isLoading } = postAPI.useFetchAllPostsQuery(limit)
   // state that hook useFetchAllPostsQuery() returns named as `data` ( type IPost[])
@@ -13,7 +13,7 @@ export function PostsContainer2() {
   // so from now we have a variable `posts: IPost[]` and we can use it in JSX
  
   useEffect(() => {
-    setTimeout(() => { setLimit(20) }, 2000)
+    setTimeout(() => { setLimit(2) }, 2000)
   }, [])
 
   return (
