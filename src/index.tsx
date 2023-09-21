@@ -10,7 +10,7 @@ import { setupStore4 } from './Example4/store4/store4';
 import { App4 } from './Example4/App4';
 import { store1 } from './Example1/store';
 import App1 from './Example1/App1';
-import { setupStore } from './Example2/store/store2';
+import {  setupStore2 } from './Example2/store/store2';
 import { App5 } from './Example5/App5';
 import { store5 } from './Example5/redux/store5';
 
@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 
-const store2 = setupStore()
+const store2 = setupStore2()
 // function setupStore returns our store (ex2)
 
 const store3 = setupStore3()

@@ -23,7 +23,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 // redux-toolkit allows us to simplify this process abow ▲ ▲ ▲
 // it's a built-in createAsyncThunk functon below  ▼ ▼ ▼
 
-
+ 
 // fetchUsers - is an thunk creator.
 // fetchUsers call result - is a thunk
 

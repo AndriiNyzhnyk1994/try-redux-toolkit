@@ -52,7 +52,7 @@ export const userSlice = createSlice({
         // so we can handle any logic while any stage of request-responce process
         // Below we created a few extra reducers, that will be called 
         // when we will dispatch fetchUsers thunk
-
+ 
         // [fetching.pending.type] === 'user/fetchAll/pending'
         
         [fetchUsers.pending.type]: (state) => {
