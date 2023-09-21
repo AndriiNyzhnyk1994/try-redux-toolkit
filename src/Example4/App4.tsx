@@ -25,14 +25,16 @@ export type TasksStateType = {
 
 export function App4() {
 
-    const todoLists: TodoListType[] = useAppSelector4(state => state.todoListsReducer.todoLists)
+    //const todoLists: TodoListType[] = useAppSelector4(state => state.todoListsReducer.todoLists)
 
     const {data: todoListsData} = todoListsAPI.useFetchTodoListsQuery(10)
-
+    const [deleteTodoListRTK, {}] = todoListsAPI.useDeleteTodoListMutation()
+    const [updateTodoListRTK, {}] = todoListsAPI.useUpdateTodoListMutation()
+    const [addTodoListRTK, {}] = todoListsAPI.useCreateTodoListMutation()
 
     const dispatch = useAppDispatch4()
     
-console.log(todoListsData);
+
 
 // _______________________ TodoList functions _________________________________
     const addTodoList = (newTodoTitle: string) => {
@@ -64,30 +66,36 @@ console.log(todoListsData);
     }
 // __________________________useEffect______________________________________
 
+    // useEffect(() => {
+    //     dispatch(fetchTodoLists())
+    // },[])
 
 
+const handleAddTodoList = async (title: string) => {
+    await addTodoListRTK({title})
+}
+const handleUpdateTodoList = async (id: string, title: string) => {
+    await updateTodoListRTK({id, title})
+}
+const handleDeleteTodoList = async () => {
 
+}
 
-
-    useEffect(() => {
-        dispatch(fetchTodoLists())
-    },[])
-
-   
 
     return (
         <div style={{textAlign: 'center'}}>
             <h1>Example 4</h1>
-            <AddItemForm addItem={addTodoList} />
+            <AddItemForm addItem={handleAddTodoList} />
             {
-                todoLists.map(tl => {
+                
+                todoListsData && todoListsData.map(tl => {
                     
                     return (
                         <div key={tl.id}>
                             <TodoList
                                 id={tl.id}
                                 title={tl.title}
-                                filter={tl.filter}
+                                filter={'all'}
                                 removeTodoList={removeTodoList}
                                 changeTodoListTitle={changeTodoListTitle}
                                 changeFilter={changeFilter}
@@ -95,6 +103,7 @@ console.log(todoListsData);
                                 addTask={addTask}
                                 changeTaskTitle={changeTaskTitle}
                                 changeTaskStatus={changeTaskStatus}
+                                updateTodoList={handleUpdateTodoList}
                             />
                         </div>
 

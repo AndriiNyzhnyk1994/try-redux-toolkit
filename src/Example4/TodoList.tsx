@@ -9,6 +9,7 @@ type PropsType = {
     title: string
     id: string
     filter: FilterValuesType
+    updateTodoList: (id: string, title: string) => void
     removeTodoList: (todoListId: string) => void
     changeTodoListTitle: (todoListId: string, newTitle: string) => void
     changeFilter: (todoListId: string, value: FilterValuesType) => void
@@ -18,7 +19,7 @@ type PropsType = {
     changeTaskTitle: (todoListId: string, taskId: string, newTitle: string) => void
 }
 
-
+ 
 export function TodoList(props: PropsType) {
 
     const removeTodoListHandler = () => {
@@ -45,6 +46,7 @@ export function TodoList(props: PropsType) {
         props.changeFilter(props.id, 'completed')
     }
 
+
     const tasks: TasksStateType = useAppSelector4(state => state.tasksReducer)
     const dispatch = useAppDispatch4()
 
@@ -56,6 +58,11 @@ export function TodoList(props: PropsType) {
         tasksForTodoList = tasks[props.id].filter(t => !t.status)
     }
 
+    const onUpdateTodoList = (title: string) => {
+        props.updateTodoList(props.id, title )
+    }
+
+
     useEffect(() => {
 
         dispatch(fetchTasks(props.id))
@@ -66,7 +73,7 @@ export function TodoList(props: PropsType) {
         <div>
             <button onClick={removeTodoListHandler}>x</button>
             <h2>
-                <EditableSpan title={props.title} changeTitle={changeTodoListTitleHandler} />
+                <EditableSpan title={props.title} changeTitle={onUpdateTodoList} />
             </h2>
             <AddItemForm addItem={addTaskHandler} />
             <ul>

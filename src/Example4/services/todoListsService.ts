@@ -21,25 +21,25 @@ export const todoListsAPI = createApi({
             }),
             providesTags: result => ['TodoLists']
         }),
-        createPost: build.mutation<{ item: TodoListType }, { title: string }>({
+        createTodoList: build.mutation<{ item: TodoListType }, { title: string }>({
             query: (body) => ({
-                url: '/todo-lists',
+                url: 'todo-lists',
                 method: 'POST',
                 body
             }),
             invalidatesTags: ['TodoLists']
         }),
-        updatePost: build.mutation({
+        updateTodoList: build.mutation({
             query: (body) => ({
-                url: `/todo-lists/${body.id}`,
+                url: `todo-lists/${body.id}`,
                 method: 'PUT',
                 body: { title: body.title }
             }),
             invalidatesTags: ['TodoLists']
         }),
-        deletePost: build.mutation({
+        deleteTodoList: build.mutation({
             query: (body) => ({
-                url: `/posts/${body.id}`,
+                url: `todo-lists/${body.id}`,
                 method: 'DELETE'
             }),
             invalidatesTags: ['TodoLists']
