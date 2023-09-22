@@ -66,7 +66,11 @@ export function TodoList(props: PropsType) {
     const {data: tasksData} = tasksAPI.useFetchTasksQuery(props.id)
     
     const [addTaskRTK, {}] = tasksAPI.useCreateTaskMutation()
+<<<<<<< HEAD
     const [updateTaskRTK, {}] = tasksAPI.useUpdateTaskMutation()
+=======
+
+>>>>>>> 9e08a7d8937e754d24c11458cd28100c76876784
    
     const onUpdateTodoList = (title: string) => {
         props.updateTodoList(props.id, title )
@@ -78,8 +82,11 @@ export function TodoList(props: PropsType) {
     const onAddTask = (title: string) => {
         addTaskRTK({title, todoListId: props.id})
     }
+<<<<<<< HEAD
 
    
+=======
+>>>>>>> 9e08a7d8937e754d24c11458cd28100c76876784
 
 
     // _________________________useEffect________________________________ 
