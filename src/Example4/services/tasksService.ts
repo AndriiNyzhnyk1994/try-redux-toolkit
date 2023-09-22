@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { TodoListType } from "../models";
-import { TaskType } from "../store4/ActionCreators";
+import { TaskType } from "../models";
 
 export const tasksAPI = createApi({
     reducerPath: 'tasksAPI',
@@ -19,19 +18,20 @@ export const tasksAPI = createApi({
             }),
             providesTags: result => ['Tasks']
         }),
-        createTask: build.mutation<{ item: TodoListType }, { title: string }>({
+        createTask: build.mutation<{ item: TaskType }, { title: string, todoListId: string }>({
             query: (body) => ({
-                url: 'todo-lists',
+                url: `todo-lists/${body.todoListId}/tasks`,
                 method: 'POST',
                 body
             }),
             invalidatesTags: ['Tasks']
         }),
-        updateTask: build.mutation({
+        updateTask: build
+        .mutation<{ item: TaskType }, TaskType>({
             query: (body) => ({
-                url: `todo-lists/${body.id}`,
+                url: `todo-lists/${body.todoListId}/tasks/${body.id}`,
                 method: 'PUT',
-                body: { title: body.title }
+                body: {...body, title: body.title, status: body.status }
             }),
             invalidatesTags: ['Tasks']
         }),

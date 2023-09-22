@@ -5,6 +5,7 @@ import { EditableSpan } from './utils/EditableSpan'
 import { useAppDispatch4, useAppSelector4 } from './store4/hooks'
 import { fetchTasks } from './store4/ActionCreators'
 import { tasksAPI } from './services/tasksService'
+import { taskModel } from './models'
 
 type PropsType = {
     title: string
@@ -62,14 +63,23 @@ export function TodoList(props: PropsType) {
 
     // _______________________Functions by RTK Query_______________________
 
+    const {data: tasksData} = tasksAPI.useFetchTasksQuery(props.id)
+    
+    const [addTaskRTK, {}] = tasksAPI.useCreateTaskMutation()
+    const [updateTaskRTK, {}] = tasksAPI.useUpdateTaskMutation()
+   
     const onUpdateTodoList = (title: string) => {
         props.updateTodoList(props.id, title )
     }
     const onDeleteTodoList = () => {
         props.deleteTodoListRTK(props.id)
     }
-    const {data: tasksData} = tasksAPI.useFetchTasksQuery(props.id)
-    
+
+    const onAddTask = (title: string) => {
+        addTaskRTK({title, todoListId: props.id})
+    }
+
+   
 
 
     // _________________________useEffect________________________________ 
@@ -86,7 +96,7 @@ export function TodoList(props: PropsType) {
             <h2>
                 <EditableSpan title={props.title} changeTitle={onUpdateTodoList} />
             </h2>
-            <AddItemForm addItem={addTaskHandler} />
+            <AddItemForm addItem={onAddTask} />
             <ul>
                 {
                   tasksData && tasksData.items.map(t => {
@@ -99,9 +109,18 @@ export function TodoList(props: PropsType) {
                         const changeTaskTitle = (value: string) => {
                             props.changeTaskTitle(props.id, t.id, value)
                         }
+                        // _____________ rtk functions _____________
+                        const onChangeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
+                            updateTaskRTK({
+                                ...taskModel,
+                                id: t.id,
+                                todoListId: props.id,
+                                status: e.currentTarget.checked ? 2 : 0
+                                })
+                        }
                         return (
                             <li key={t.id}>
-                                <input type="checkbox" checked={!!t.status} onChange={changeTaskStatus} />
+                                <input type="checkbox" checked={!!t.status} onChange={onChangeTaskStatus} />
                                 <EditableSpan changeTitle={changeTaskTitle} title={t.title} />
                                 <button onClick={removeTaskHandler}>x</button>
                             </li>

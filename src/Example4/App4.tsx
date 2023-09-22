@@ -4,12 +4,13 @@ import { TodoList } from './TodoList'
 import { AddItemForm } from './utils/AddItemForm'
 import { addTodoListAC, changeFilterAC, changeTodoListTitleAC, removeTodoListAC } from './store4/todoListsSlice'
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './store4/tasksSlice'
-import { TaskType, fetchTodoLists } from './store4/ActionCreators'
+import { fetchTodoLists } from './store4/ActionCreators'
 import { useAppDispatch4, useAppSelector4 } from './store4/hooks'
 import { AppDispatchType4 } from './store4/store4'
 import axios from 'axios'
 import { todoListsAPI } from './services/todoListsService'
 import { tasksAPI } from './services/tasksService'
+import { TaskType } from './models'
 
 
 

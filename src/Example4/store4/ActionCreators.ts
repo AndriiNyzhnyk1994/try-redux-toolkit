@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { TodoListType } from "../App4";
+import { TaskType } from "../models";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -45,15 +46,3 @@ export type GetTasksResponseType = {
     error: string | null
 }
 
-export type TaskType = {
-    id: string
-    title: string
-    description?: string
-    todoListId?: string
-    order?: number
-    status?: number
-    priority?: number
-    startDate?: string
-    deadline?: string
-    addedDate?: string
-}
