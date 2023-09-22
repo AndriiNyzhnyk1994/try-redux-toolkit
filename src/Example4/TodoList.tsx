@@ -22,7 +22,7 @@ type PropsType = {
     changeTaskTitle: (todoListId: string, taskId: string, newTitle: string) => void
 }
 
- 
+
 export function TodoList(props: PropsType) {
 
     const removeTodoListHandler = () => {
@@ -63,23 +63,23 @@ export function TodoList(props: PropsType) {
 
     // _______________________Functions by RTK Query_______________________
 
-    const {data: tasksData} = tasksAPI.useFetchTasksQuery(props.id)
-    
-    const [addTaskRTK, {}] = tasksAPI.useCreateTaskMutation()
-    const [updateTaskRTK, {}] = tasksAPI.useUpdateTaskMutation()
-   
+    const { data: tasksData } = tasksAPI.useFetchTasksQuery(props.id)
+
+    const [addTaskRTK, { }] = tasksAPI.useCreateTaskMutation()
+    const [updateTaskRTK, { }] = tasksAPI.useUpdateTaskMutation()
+
     const onUpdateTodoList = (title: string) => {
-        props.updateTodoList(props.id, title )
+        props.updateTodoList(props.id, title)
     }
     const onDeleteTodoList = () => {
         props.deleteTodoListRTK(props.id)
     }
 
     const onAddTask = (title: string) => {
-        addTaskRTK({title, todoListId: props.id})
+        addTaskRTK({ title, todoListId: props.id })
     }
 
-   
+
 
 
     // _________________________useEffect________________________________ 
@@ -99,7 +99,7 @@ export function TodoList(props: PropsType) {
             <AddItemForm addItem={onAddTask} />
             <ul>
                 {
-                  tasksData && tasksData.items.map(t => {
+                    tasksData && tasksData.items.map(t => {
                         const removeTaskHandler = () => {
                             props.removeTask(props.id, t.id)
                         }
@@ -109,19 +109,25 @@ export function TodoList(props: PropsType) {
                         const changeTaskTitle = (value: string) => {
                             props.changeTaskTitle(props.id, t.id, value)
                         }
-                        // _____________ rtk functions _____________
+                        // _____________ rtk handle functions _____________
                         const onChangeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
                             updateTaskRTK({
-                                ...taskModel,
-                                id: t.id,
+                                ...t,
                                 todoListId: props.id,
                                 status: e.currentTarget.checked ? 2 : 0
-                                })
+                            })
+                        }
+                        const onChangeTaskTitle = (title: string) => {
+                            updateTaskRTK({
+                                ...t,
+                                todoListId: props.id,
+                                title
+                            })
                         }
                         return (
                             <li key={t.id}>
                                 <input type="checkbox" checked={!!t.status} onChange={onChangeTaskStatus} />
-                                <EditableSpan changeTitle={changeTaskTitle} title={t.title} />
+                                <EditableSpan changeTitle={onChangeTaskTitle} title={t.title} />
                                 <button onClick={removeTaskHandler}>x</button>
                             </li>
                         )

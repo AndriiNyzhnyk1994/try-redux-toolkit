@@ -2,7 +2,8 @@ import { v1 } from "uuid";
 import { FilterValuesType, TasksStateType, TodoListType } from "../App4";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { addTodoListAC, removeTodoListAC } from "./todoListsSlice";
-import { TaskType, fetchTasks, fetchTodoLists } from "./ActionCreators";
+import { fetchTasks, fetchTodoLists } from "./ActionCreators";
+import { TaskType } from "../models";
 
 
 
