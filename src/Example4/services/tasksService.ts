@@ -19,9 +19,9 @@ export const tasksAPI = createApi({
             }),
             providesTags: result => ['Tasks']
         }),
-        createTask: build.mutation<{ item: TodoListType }, { title: string }>({
+        createTask: build.mutation<{ item: TaskType }, { title: string, todoListId: string }>({
             query: (body) => ({
-                url: 'todo-lists',
+                url: `todo-lists/${body.todoListId}/tasks`,
                 method: 'POST',
                 body
             }),
