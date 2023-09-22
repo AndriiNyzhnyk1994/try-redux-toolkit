@@ -35,9 +35,9 @@ export const tasksAPI = createApi({
             }),
             invalidatesTags: ['Tasks']
         }),
-        deleteTask: build.mutation({
+        deleteTask: build.mutation<{}, TaskType>({
             query: (body) => ({
-                url: `todo-lists/${body.id}`,
+                url: `todo-lists/${body.todoListId}/tasks/${body.id}`,
                 method: 'DELETE'
             }),
             invalidatesTags: ['Tasks']

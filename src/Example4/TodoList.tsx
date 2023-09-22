@@ -67,6 +67,7 @@ export function TodoList(props: PropsType) {
 
     const [addTaskRTK, { }] = tasksAPI.useCreateTaskMutation()
     const [updateTaskRTK, { }] = tasksAPI.useUpdateTaskMutation()
+    const [deleteTaskRTK, { }] = tasksAPI.useDeleteTaskMutation()
 
     const onUpdateTodoList = (title: string) => {
         props.updateTodoList(props.id, title)
@@ -74,7 +75,6 @@ export function TodoList(props: PropsType) {
     const onDeleteTodoList = () => {
         props.deleteTodoListRTK(props.id)
     }
-
     const onAddTask = (title: string) => {
         addTaskRTK({ title, todoListId: props.id })
     }
@@ -124,11 +124,14 @@ export function TodoList(props: PropsType) {
                                 title
                             })
                         }
+                        const onDeleteTask = () => {
+                            deleteTaskRTK(t)
+                        }
                         return (
                             <li key={t.id}>
                                 <input type="checkbox" checked={!!t.status} onChange={onChangeTaskStatus} />
                                 <EditableSpan changeTitle={onChangeTaskTitle} title={t.title} />
-                                <button onClick={removeTaskHandler}>x</button>
+                                <button onClick={onDeleteTask}>x</button>
                             </li>
                         )
                     })
