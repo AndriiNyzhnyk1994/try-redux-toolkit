@@ -9,6 +9,7 @@ import { useAppDispatch4, useAppSelector4 } from './store4/hooks'
 import { AppDispatchType4 } from './store4/store4'
 import axios from 'axios'
 import { todoListsAPI } from './services/todoListsService'
+import { tasksAPI } from './services/tasksService'
 
 
 
@@ -24,10 +25,11 @@ export type TasksStateType = {
 
 
 export function App4() {
-
     //const todoLists: TodoListType[] = useAppSelector4(state => state.todoListsReducer.todoLists)
 
     const {data: todoListsData} = todoListsAPI.useFetchTodoListsQuery(10)
+    
+
     const [deleteTodoListRTK, {}] = todoListsAPI.useDeleteTodoListMutation()
     const [updateTodoListRTK, {}] = todoListsAPI.useUpdateTodoListMutation()
     const [addTodoListRTK, {}] = todoListsAPI.useCreateTodoListMutation()
@@ -77,8 +79,8 @@ const handleAddTodoList = async (title: string) => {
 const handleUpdateTodoList = async (id: string, title: string) => {
     await updateTodoListRTK({id, title})
 }
-const handleDeleteTodoList = async () => {
-
+const handleDeleteTodoList = async (id: string) => {
+    await deleteTodoListRTK({id})
 }
 
 
@@ -86,8 +88,7 @@ const handleDeleteTodoList = async () => {
         <div style={{textAlign: 'center'}}>
             <h1>Example 4</h1>
             <AddItemForm addItem={handleAddTodoList} />
-            {
-                
+            {         
                 todoListsData && todoListsData.map(tl => {
                     
                     return (
@@ -104,6 +105,7 @@ const handleDeleteTodoList = async () => {
                                 changeTaskTitle={changeTaskTitle}
                                 changeTaskStatus={changeTaskStatus}
                                 updateTodoList={handleUpdateTodoList}
+                                deleteTodoListRTK={handleDeleteTodoList}
                             />
                         </div>
 

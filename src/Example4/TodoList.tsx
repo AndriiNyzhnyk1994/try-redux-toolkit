@@ -4,12 +4,14 @@ import { AddItemForm } from './utils/AddItemForm'
 import { EditableSpan } from './utils/EditableSpan'
 import { useAppDispatch4, useAppSelector4 } from './store4/hooks'
 import { fetchTasks } from './store4/ActionCreators'
+import { tasksAPI } from './services/tasksService'
 
 type PropsType = {
     title: string
     id: string
     filter: FilterValuesType
     updateTodoList: (id: string, title: string) => void
+    deleteTodoListRTK: (id: string) => void
     removeTodoList: (todoListId: string) => void
     changeTodoListTitle: (todoListId: string, newTitle: string) => void
     changeFilter: (todoListId: string, value: FilterValuesType) => void
@@ -58,27 +60,36 @@ export function TodoList(props: PropsType) {
         tasksForTodoList = tasks[props.id].filter(t => !t.status)
     }
 
+    // _______________________Functions by RTK Query_______________________
+
     const onUpdateTodoList = (title: string) => {
         props.updateTodoList(props.id, title )
     }
+    const onDeleteTodoList = () => {
+        props.deleteTodoListRTK(props.id)
+    }
+    const {data: tasksData} = tasksAPI.useFetchTasksQuery(props.id)
+    
 
 
-    useEffect(() => {
+    // _________________________useEffect________________________________ 
 
-        dispatch(fetchTasks(props.id))
-    }, [])
+    // useEffect(() => {
+
+    //     dispatch(fetchTasks(props.id))
+    // }, [])
 
 
     return (
         <div>
-            <button onClick={removeTodoListHandler}>x</button>
+            <button onClick={onDeleteTodoList}>x</button>
             <h2>
                 <EditableSpan title={props.title} changeTitle={onUpdateTodoList} />
             </h2>
             <AddItemForm addItem={addTaskHandler} />
             <ul>
-                {/* {
-                    tasksForTodoList.map(t => {
+                {
+                  tasksData && tasksData.items.map(t => {
                         const removeTaskHandler = () => {
                             props.removeTask(props.id, t.id)
                         }
@@ -96,7 +107,7 @@ export function TodoList(props: PropsType) {
                             </li>
                         )
                     })
-                } */}
+                }
 
             </ul>
             <div>
