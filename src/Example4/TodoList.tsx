@@ -63,7 +63,7 @@ export function TodoList(props: PropsType) {
 
     // _______________________Functions by RTK Query_______________________
 
-    const { data: tasksData } = tasksAPI.useFetchTasksQuery(props.id)
+    const { data: tasksData, isLoading} = tasksAPI.useFetchTasksQuery(props.id)
 
     const [addTaskRTK, { }] = tasksAPI.useCreateTaskMutation()
     const [updateTaskRTK, { }] = tasksAPI.useUpdateTaskMutation()
@@ -89,7 +89,7 @@ export function TodoList(props: PropsType) {
     //     dispatch(fetchTasks(props.id))
     // }, [])
 
-
+    
     return (
         <div>
             <button onClick={onDeleteTodoList}>x</button>
